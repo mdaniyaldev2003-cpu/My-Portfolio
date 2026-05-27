@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Daniyal | Data Engineer Portfolio</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --surface: #151c28;
+            --surface-light: #1e2636;
+            --text: #e4e6eb;
+            --text-secondary: #9ba3b5;
+            --accent: #00b4d8;
+            --accent2: #0077b6;
+            --accent3: #48cae4;
+            --gradient: linear-gradient(135deg, #00b4d8, #0077b6);
+            --border: rgba(255, 255, 255, 0.06);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--bg);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* animated background orbs */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bg-animation .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.12;
+            animation: float 20s infinite ease-in-out;
+        }
+        .bg-animation .orb:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            background: #00b4d8;
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+        .bg-animation .orb:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: #0077b6;
+            bottom: -10%;
+            right: -5%;
+            animation-delay: -7s;
+        }
+        .bg-animation .orb:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            background: #48cae4;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(8%, -12%) scale(1.15);
+            }
+            50% {
+                transform: translate(-5%, 10%) scale(0.9);
+            }
+            75% {
+                transform: translate(12%, 5%) scale(1.1);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* navbar */
+        .navbar {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(21, 28, 40, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 28px;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+            transition: var(--transition);
+        }
+        .navbar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            white-space: nowrap;
+        }
+        .navbar a:hover,
+        .navbar a.active {
+            color: #fff;
+        }
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .navbar a:hover::after,
+        .navbar a.active::after {
+            width: 100%;
+        }
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 8px;
+        }
+
+        /* sections */
+        section {
+            padding: 100px 0;
+        }
+
+        /* hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .hero-img-wrapper {
+            flex-shrink: 0;
+            position: relative;
+        }
+        .hero-img {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid transparent;
+            background: var(--gradient);
+            padding: 4px;
+            box-shadow: 0 0 60px rgba(0, 180, 216, 0.3), 0 0 120px rgba(0, 119, 182, 0.2);
+            transition: var(--transition);
+            background-image: url('./1.jpg');
+            /* 👆 agar aapki image '1.png' hai to './1.png' kar dein. */
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-img:hover {
+            box-shadow: 0 0 80px rgba(0, 180, 216, 0.5), 0 0 150px rgba(0, 119, 182, 0.4);
+            transform: scale(1.03);
+        }
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+        .hero-text .title {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .hero-text .location {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            letter-spacing: 0.3px;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 180, 216, 0.35);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 35px rgba(0, 180, 216, 0.55);
+            transform: translateY(-3px);
+        }
+        .btn-outline {
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
+        }
+
+        /* section titles */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .section-title span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-size: 1rem;
+        }
+
+        /* about card */
+        .about-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .about-card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        .skill-category {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .skill-category:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-4px);
+        }
+        .skill-category h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .skill-category ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .skill-category ul li {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* experience */
+        .experience-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+        }
+        .experience-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .experience-item .meta {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .experience-item ul {
+            list-style: disc;
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+        .experience-item ul li {
+            margin-bottom: 6px;
+        }
+
+        /* projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+        }
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+        .project-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+        }
+        .project-card .project-icon {
+            font-size: 2rem;
+            margin-bottom: 14px;
+            color: var(--accent);
+        }
+        .project-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+        .project-card .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .project-card .tech-tags span {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+        }
+        .project-links {
+            display: flex;
+            gap: 12px;
+        }
+        .project-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .project-links a:hover {
+            color: #fff;
+        }
+
+        /* contact */
+        .contact-grid {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 280px;
+        }
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--surface);
+            padding: 16px 22px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            text-decoration: none;
+            color: #fff;
+        }
+        .contact-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(0,180,216,0.2);
+            transform: translateX(4px);
+        }
+        .contact-card .icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .icon-github {
+            background: #24292e;
+            color: #fff;
+        }
+        .icon-linkedin {
+            background: #0077b5;
+            color: #fff;
+        }
+        .icon-email {
+            background: var(--gradient);
+            color: #fff;
+        }
+        .icon-phone {
+            background: #2a6f97;
+            color: #fff;
+        }
+        .contact-form-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+        }
+        .contact-form-card h3 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--surface-light);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            resize: vertical;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0,180,216,0.15);
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            border: none;
+            background: var(--gradient);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .submit-btn:hover {
+            box-shadow: 0 8px 30px rgba(0,180,216,0.45);
+            transform: translateY(-3px);
+        }
+
+        /* footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* scroll top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,180,216,0.4);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+        }
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            .hero-img {
+                width: 180px;
+                height: 180px;
+            }
+            .navbar {
+                gap: 16px;
+                padding: 8px 18px;
+            }
+            .navbar a {
+                font-size: 0.78rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <span class="nav-logo">MD</span>
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-grid reveal">
+                <div class="hero-img-wrapper">
+                    <!-- Agar aapki image '1.jpg' nahi hai to extension change karein (e.g., './1.png') -->
+                    <div class="hero-img" title="Muhammad Daniyal" aria-label="Profile photo"></div>
+                </div>
+                <div class="hero-text">
+                    <h1>Muhammad Daniyal</h1>
+                    <p class="title">Data Engineer | Real-Time Data Pipelines | Kafka | Airflow | AWS</p>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Islamabad, Pakistan</p>
+                    <div class="hero-btns">
+                        <a href="https://github.com/mdaniyaldev2003-cpu" target="_blank" rel="noopener" class="btn btn-primary">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/muhammad-daniyal-773786384" target="_blank" rel="noopener" class="btn btn-outline">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </a>
+                        <a href="./resume.pdf" download class="btn btn-outline">
+                          <i class="fas fa-download"></i> Download CV
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title reveal">About <span>Me</span></h2>
+            <p class="section-subtitle reveal">A quick look into my background</p>
+            <div class="about-card reveal">
+                <p>
+                    Computer Science student specializing in <strong>Data Engineering</strong> and <strong>Real-Time Data Processing</strong> with hands-on experience building ETL pipelines, streaming architectures, cloud-based data lakes, and automated workflows. Skilled in Python, SQL, Apache Kafka, Apache Airflow, AWS S3, and MySQL with experience developing scalable analytics systems, real-time monitoring dashboards, and production-style data engineering projects.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title reveal">Core <span>Skills</span></h2>
+            <p class="section-subtitle reveal">Technologies I work with</p>
+            <div class="skills-grid reveal">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>Python</li><li>SQL</li><li>Java</li><li>C++</li><li>Bash</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Engineering</h3>
+                    <ul>
+                        <li>ETL Pipelines</li><li>Data Warehousing</li><li>Data Lakes</li><li>Data Cleaning</li><li>Aggregation</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Streaming & Automation</h3>
+                    <ul>
+                        <li>Apache Kafka</li><li>Apache Airflow</li><li>Docker Compose</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <ul>
+                        <li>MySQL</li><li>SQL Joins</li><li>Window Functions</li><li>Query Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Cloud & Analytics</h3>
+                    <ul>
+                        <li>AWS S3</li><li>Amazon Athena</li><li>Git</li><li>Docker</li><li>VS Code</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Currently Learning</h3>
+                    <ul>
+                        <li>Apache Spark</li><li>AWS Services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title reveal">Work <span>Experience</span></h2>
+            <p class="section-subtitle reveal">Where I've applied my skills</p>
+            <div class="experience-item reveal">
+                <h3>Data Science & Analytics Intern</h3>
+                <p class="meta">DevelopersHub Corporation (Remote) | Feb 2026 – Mar 2026</p>
+                <ul>
+                    <li>Worked on ML classification models using real-world datasets.</li>
+                    <li>Performed preprocessing, feature engineering, and model export using Pickle.</li>
+                    <li>Gained hands-on experience with analytics workflows and data processing.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title reveal">Featured <span>Projects</span></h2>
+            <p class="section-subtitle reveal">Click on the links to explore the repositories</p>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Real-Time Cyber Threat Detection Pipeline</h3>
+                    <p>Designed a real-time streaming architecture using Kafka producers/consumers to process simulated web server logs with malicious traffic. Built rule-based threat detection for SQL injection, XSS, brute-force, directory traversal. Stored logs in MySQL & AWS S3, dashboards with Flask, automated with Airflow DAGs.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>Kafka</span><span>Airflow</span><span>MySQL</span><span>AWS S3</span><span>Docker</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/mdaniyaldev2003-cpu/Complete-real-time-cyber-threat-detection-pipeline" target="_blank" rel="noopener"><i class="fab fa-github"></i> Repository</a>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-water"></i></div>
+                    <h3>Pakistan Flood Risk Monitoring System</h3>
+                    <p>Built ETL pipelines using Apache Airflow with live weather APIs and MySQL dashboards for flood early warning.</p>
+                    <div class="tech-tags">
+                        <span>Airflow</span><span>Python</span><span>MySQL</span><span>API Integration</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/mdaniyaldev2003-cpu/airflow-flood-early-warning-system" target="_blank" rel="noopener"><i class="fab fa-github"></i> Repository</a>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-database"></i></div>
+                    <h3>Customer Transactions Data Warehouse</h3>
+                    <p>Designed a mini data warehouse using SQL window functions for advanced analytics on customer transactions.</p>
+                    <div class="tech-tags">
+                        <span>SQL</span><span>Window Functions</span><span>Data Warehousing</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/mdaniyaldev2003-cpu/Customer-Transactions-Data-Warehouse" target="_blank" rel="noopener"><i class="fab fa-github"></i> Repository</a>
+                    </div>
+                </div>
+                <!-- Project 4 -->
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-churn"></i>📉</div>
+                    <h3>Customer Churn Prediction (Bank Customers)</h3>
+                    <p>Developed a machine learning model to predict bank customer churn, featuring data preprocessing and model evaluation.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>Scikit-learn</span><span>Classification</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/mdaniyaldev2003-cpu/Customer-Churn-Prediction-Bank-Customers-" target="_blank" rel="noopener"><i class="fab fa-github"></i> Repository</a>
+                    </div>
+                </div>
+                <!-- Project 5 -->
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>ETL Pipeline for Border Crossing Data</h3>
+                    <p>Built a robust ETL pipeline to process, clean, and aggregate border crossing data for analytical reporting.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>ETL</span><span>Data Cleaning</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/mdaniyaldev2003-cpu/ETL_pipeline-for-border-crossing-data" target="_blank" rel="noopener"><i class="fab fa-github"></i> Repository</a>
+                    </div>
+                </div>
+                <!-- Project 6 -->
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Daily Sales Aggregation & Reporting Pipeline</h3>
+                    <p>Automated daily sales reporting using Python and SQL transformations, providing aggregated business insights.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>SQL</span><span>Reporting</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/mdaniyaldev2003-cpu/Daily-Sales-Aggregation-Reporting-Pipeline" target="_blank" rel="noopener"><i class="fab fa-github"></i> Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Get In <span>Touch</span></h2>
+            <p class="section-subtitle reveal">Let's connect and build something great</p>
+            <div class="contact-grid reveal">
+                <div class="contact-info">
+                    <a href="mailto:daniyalman2003@gmail.com" class="contact-card">
+                        <span class="icon-circle icon-email"><i class="fas fa-envelope"></i></span>
+                        <span><strong>Email</strong><br><small>daniyalman2003@gmail.com</small></span>
+                    </a>
+                    <a href="tel:+923075332565" class="contact-card">
+                        <span class="icon-circle icon-phone"><i class="fas fa-phone"></i></span>
+                        <span><strong>Phone</strong><br><small>+92 307 5332565</small></span>
+                    </a>
+                    <a href="https://github.com/mdaniyaldev2003-cpu" target="_blank" rel="noopener" class="contact-card">
+                        <span class="icon-circle icon-github"><i class="fab fa-github"></i></span>
+                        <span><strong>GitHub</strong><br><small>github.com/mdaniyaldev2003-cpu</small></span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/muhammad-daniyal-773786384" target="_blank" rel="noopener" class="contact-card">
+                        <span class="icon-circle icon-linkedin"><i class="fab fa-linkedin-in"></i></span>
+                        <span><strong>LinkedIn</strong><br><small>linkedin.com/in/muhammad-daniyal</small></span>
+                    </a>
+                </div>
+                <div class="contact-form-card">
+                    <h3>Send a Message</h3>
+                    <form id="contactForm" action="https://formspree.io/f/xykvbrod" method="POST">
+    <div class="form-group">
+        <input type="text" name="name" id="name" placeholder="Your Name" required>
+    </div>
+    <div class="form-group">
+        <input type="email" name="email" id="email" placeholder="Your Email" required>
+    </div>
+    <div class="form-group">
+        <textarea name="message" id="message" placeholder="Your Message..." rows="4" required></textarea>
+    </div>
+    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send</button>
+</form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Muhammad Daniyal. Built with <i class="fas fa-heart" style="color:#00b4d8;"></i> for data engineering.</p>
+        <p style="margin-top:4px;">
+            <a href="https://github.com/mdaniyaldev2003-cpu" target="_blank">GitHub</a> · 
+            <a href="https://www.linkedin.com/in/muhammad-daniyal-773786384" target="_blank">LinkedIn</a>
+        </p>
+    </footer>
+
+    <!-- Scroll to top -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Scroll to top
+        const scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            scrollBtn.classList.toggle('visible', window.scrollY > 500);
+        });
+        scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Navbar active state
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.navbar a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 150) current = s.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.15 });
+        reveals.forEach(el => observer.observe(el));
+
+        // Contact form - AJAX with Formspree
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    
+    if (!name || !email || !message) {
+        alert('Please fill all fields.');
+        return;
+    }
+    
+    // Submit via fetch
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            alert('✅ Thank you, ' + name + '! Your message has been sent.');
+            form.reset();
+        } else {
+            alert('❌ Oops! Something went wrong. Please try again.');
+        }
+    } catch (error) {
+        alert('❌ Network error. Please check your connection.');
+    }
+});
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
